@@ -12,14 +12,12 @@ import { CopyButton } from './CopyButton';
 interface Props {
   message: Message;
   messageIndex: number;
-  lightMode: 'light' | 'dark';
   onEditMessage: (message: Message, messageIndex: number) => void;
 }
 
 export const ChatMessage: FC<Props> = ({
   message,
   messageIndex,
-  lightMode,
   onEditMessage,
 }) => {
   const { t } = useTranslation('chat');
@@ -76,11 +74,10 @@ export const ChatMessage: FC<Props> = ({
 
   return (
     <div
-      className={`group ${
-        message.role === 'assistant'
+      className={`group ${message.role === 'assistant'
           ? 'border-b border-black/10 bg-gray-50 text-gray-800 dark:border-gray-900/50 dark:bg-[#444654] dark:text-gray-100'
           : 'border-b border-black/10 bg-white text-gray-800 dark:border-gray-900/50 dark:bg-[#343541] dark:text-gray-100'
-      }`}
+        }`}
       style={{ overflowWrap: 'anywhere' }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -117,7 +114,7 @@ export const ChatMessage: FC<Props> = ({
                       onClick={handleEditMessage}
                       disabled={messageContent.trim().length <= 0}
                     >
-                      Save & Submit
+                      {t('Save & Submit')}
                     </button>
                     <button
                       className="h-[40px] rounded-md border border-neutral-300 px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
@@ -126,7 +123,7 @@ export const ChatMessage: FC<Props> = ({
                         setIsEditing(false);
                       }}
                     >
-                      Cancel
+                      {t('Cancel')}
                     </button>
                   </div>
                 </div>
@@ -138,11 +135,10 @@ export const ChatMessage: FC<Props> = ({
 
               {(isHovering || window.innerWidth < 640) && !isEditing && (
                 <button
-                  className={`absolute ${
-                    window.innerWidth < 640
+                  className={`absolute ${window.innerWidth < 640
                       ? 'right-3 bottom-1'
                       : 'right-[-20px] top-[26px]'
-                  }`}
+                    }`}
                 >
                   <IconEdit
                     size={20}
@@ -161,12 +157,12 @@ export const ChatMessage: FC<Props> = ({
                 components={{
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || '');
+                    
                     return !inline && match ? (
                       <CodeBlock
                         key={Math.random()}
                         language={match[1]}
                         value={String(children).replace(/\n$/, '')}
-                        lightMode={lightMode}
                         {...props}
                       />
                     ) : (

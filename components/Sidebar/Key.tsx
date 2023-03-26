@@ -27,7 +27,7 @@ export const Key: FC<Props> = ({ apiKey, onApiKeyChange }) => {
 
   return isChanging ? (
     <div className="duration:200 flex w-full cursor-pointer items-center rounded-md py-3 px-3 transition-colors hover:bg-gray-500/10">
-      <IconKey size={16} />
+      <IconKey size={18} />
 
       <input
         className="ml-2 h-[20px] flex-1 overflow-hidden overflow-ellipsis border-b border-neutral-400 bg-transparent pr-1 text-left text-white outline-none focus:border-neutral-100"
@@ -35,6 +35,7 @@ export const Key: FC<Props> = ({ apiKey, onApiKeyChange }) => {
         value={newKey}
         onChange={(e) => setNewKey(e.target.value)}
         onKeyDown={handleEnterDown}
+        placeholder={t('API Key') || 'API Key'}
       />
 
       <div className="flex w-[40px]">
@@ -61,7 +62,7 @@ export const Key: FC<Props> = ({ apiKey, onApiKeyChange }) => {
   ) : (
     <SidebarButton
       text={t('OpenAI API Key')}
-      icon={<IconKey size={16} />}
+      icon={<IconKey size={18} />}
       onClick={() => setIsChanging(true)}
     />
   );
